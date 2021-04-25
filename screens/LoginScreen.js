@@ -98,6 +98,7 @@ const LoginScreen = props => {
 
   const switchSignupHandler = () => {
     //navigate to signup
+    props.navigation.navigate('Signup')
   }
 
   return (
@@ -150,7 +151,7 @@ const LoginScreen = props => {
                 <Button
                   title={'Signup'}
                   color={Colors.primary}
-                  onPress={() => {switchSignupHandler}}
+                  onPress={switchSignupHandler}
                 />
               )}
             </View>

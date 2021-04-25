@@ -43,6 +43,7 @@ const formReducer = (state, action) => {
 const SignupScreen = props => {
 
     const [error, setError] = useState();
+    const [isLoading, setIsLoading] = useState(false);
 
     const dispatch = useDispatch();
 
@@ -142,14 +143,18 @@ const SignupScreen = props => {
                         initialValue=""
                     />
 
-                    <View style={styles.buttonContainter}>
+                    {isLoading? (
+                      <ActivityIndicator/>
+                    ):
+                    (
+                      <View style={styles.buttonContainter}>
                         <Button
                           title = 'Create Account'
                           color={Colors.primary}
                           onPress={signUpHandler}
                         />
                     </View>
-
+                    )}
                     <View style={styles.buttonContainter}>
                         <Button
                           title = 'Go Back'
