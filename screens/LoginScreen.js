@@ -6,7 +6,8 @@ import {
   StyleSheet,
   Button,
   ActivityIndicator,
-  Alert
+  Alert,
+  Image
 } from 'react-native';
 import { LinearGradient } from 'expo-linear-gradient';
 import { useDispatch } from 'react-redux';
@@ -109,6 +110,14 @@ const LoginScreen = props => {
     >
       <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
         <Card style={styles.authContainer}>
+          <View style={styles.imageContainer}>
+          <Image
+            style={styles.tinyLogo}
+            source={
+              require('../assets/teeny.png')
+            }
+          />
+          </View>
           <ScrollView>
             <Input
               id="email"
@@ -168,7 +177,8 @@ const LoginScreen = props => {
 
 const styles = StyleSheet.create({
   screen: {
-    flex: 1
+    flex: 1,
+    backgroundColor: 'skyblue'
   },
   gradient: {
     flex: 1,
@@ -178,11 +188,19 @@ const styles = StyleSheet.create({
   authContainer: {
     width: '80%',
     maxWidth: 400,
-    maxHeight: 400,
+    maxHeight: 700,
     padding: 20
   },
   buttonContainer: {
     marginTop: 10
+  },
+  imageContainer:{
+    paddingVertical: 20,
+    alignItems: 'center'
+  },
+  tinyLogo:{
+    height: 80,
+    width: 185
   }
 });
 

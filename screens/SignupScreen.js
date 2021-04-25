@@ -89,13 +89,13 @@ const SignupScreen = props => {
             formState.inputValues.password
         );
         setError(null);
-        //setIsLoading(true);
+        setIsLoading(true);
         try {
             await dispatch(action);
             //props.navigation.navigate('Login');
           } catch (err) {
             setError(err.message);
-            //setIsLoading(false);
+            setIsLoading(false);
         }
     }
 
@@ -179,7 +179,8 @@ const styles = StyleSheet.create({
     screen: {
       flex: 1,
       justifyContent: 'center',
-      alignItems: 'center'
+      alignItems: 'center',
+      backgroundColor: 'skyblue'
     },
     gradient: {
       flex: 1,
@@ -189,11 +190,12 @@ const styles = StyleSheet.create({
     authContainer: {
       width: '80%',
       maxWidth: 400,
-      maxHeight: 400,
+      maxHeight: 800,
       padding: 20
     },
     buttonContainer: {
-      marginTop: 10
+      marginTop: 10,
+      paddingVertical: 5
     }
 });
 
