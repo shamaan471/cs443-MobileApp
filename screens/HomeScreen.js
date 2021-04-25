@@ -1,8 +1,10 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
 import Card from '../components/UI/Card';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { Input, CheckBox, Button } from 'react-native-elements';
+import * as authActions from '../store/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
@@ -13,12 +15,64 @@ const HomeScreen = props => {
     const [customUrlChecked, setCostumUrlChecked] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
     const [customUrl, setCustomUrl] = useState('');
+    const userId = useSelector(state => state.auth.userId);
+
+    const dispatch = useDispatch();
 
 
-
-    const generateShortUrlHandler = text => {
+    const generateShortUrlHandler = async (text, isCostumUrl, myCustomUrl) => {
+        setIsLoading(true);
         console.log(`long url : ${text}`);
+        console.log(`custom url : ${myCustomUrl}`);
         //send api request to genetate the long url
+        let response;
+        if(isCostumUrl){
+            response = await fetch(
+                'https://teenyurl21.herokuapp.com/api/Url/Custom',
+                {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userID: userId,
+                        longURL: text,
+                        shortURL: myCustomUrl
+                    })
+                }
+            );
+        }
+        else{
+            response = await fetch(
+                'https://teenyurl21.herokuapp.com/api/Url',
+                {
+                    method: 'Post',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        userID: userId,
+                        longURL: text
+                    })
+                }
+            );
+        }
+       
+        if (!response.ok) {
+            const errorResData = await response.json();
+            const errorId = errorResData.error.message;
+            let message = 'Something went wrong!';
+            console.log(message);
+            console.log(errorId);
+            setIsLoading(false);
+        }
+        const resData = await response.json();
+        console.log(resData);
+        setIsLoading(false);
+    }
+
+    const logoutHandler = () => {
+        dispatch(authActions.logout());
     }
 
     return(
@@ -44,11 +98,25 @@ const HomeScreen = props => {
                     />) 
                     : (null)
                 }
-                <Button
-                    title="Generate Short URL"
+                {isLoading?
+                    (
+                        <ActivityIndicator/>
+                    )
+                    :
+                    (
+                        <Button
+                            title="Generate Short URL"
+                            type="outline"
+                            onPress = {() => {generateShortUrlHandler(enteredLongUrl, customUrlChecked, customUrl)}}
+                        />
+                    )
+                }
+                <Button 
+                    title = "Logout"
                     type="outline"
-                    onPress = {() => {generateShortUrlHandler(enteredLongUrl)}}
+                    onPress={logoutHandler}
                 />
+                    
             </Card>
         </View>
     );

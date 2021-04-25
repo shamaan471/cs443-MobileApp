@@ -41,19 +41,48 @@ export const signup = (fullName, email, password) => {
 
       const resData = await response.json();
       console.log(resData);
-      // dispatch(
-      //   authenticate(
-      //     resData.id
-      //   )
-      // );
+      dispatch(
+        authenticate(
+          resData.id
+        )
+      );
     };
 };
 
 
 export const login = (email, password) => {
-    return dispatch => {
-        dispatch({type: LOGIN, email: email, password: password});
-    };
+  return async dispatch => {
+    //get infomration from database
+    //...
+    const response = await fetch(
+      'https://teenyurl21.herokuapp.com/api/User/Login',
+      {
+        method: 'Post',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          email: email,
+          password: password
+        })
+      }
+    );
+    if (!response.ok) {
+      const errorResData = await response.json();
+      const errorId = errorResData.error.message;
+      let message = 'Something went wrong!';
+      console.log(message);
+      console.log(errorId);
+    }
+
+    const resData = await response.json();
+    console.log(resData);
+    dispatch(
+      authenticate(
+        resData.id
+      )
+    );
+  };
 };
 
 
