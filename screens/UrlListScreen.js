@@ -1,6 +1,6 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, ActivityIndicator} from 'react-native';
-import Clipboard from '@react-native-community/clipboard';
+import {View, StyleSheet, ActivityIndicator, Linking} from 'react-native';
+// import Clipboard from '@react-native-community/clipboard';
 import { Text, ListItem, Button, Avatar } from 'react-native-elements';
 import { useSelector } from 'react-redux';
 import { Ionicons } from '@expo/vector-icons'; 
@@ -63,9 +63,10 @@ const UrlListScreen = props => {
                     {
                       urlList.map((l, i) => (
                         <ListItem
-                         style = {styles.listView} 
-                         key={i} bottomDivider
-                         onPress = {() => Clipboard.setString(l.short)}
+                            style = {styles.listView} 
+                            key={i} bottomDivider
+                        //  onPress = {() => Clipboard.setString(l.short)}
+                            onPress={ ()=>{ Linking.openURL(`https://teenyurl21.herokuapp.com/${l.short}`)}}
                          >
                           <Avatar source={{uri: "http://cdn.onlinewebfonts.com/svg/img_504359.png"}} />
                           <ListItem.Content>
@@ -92,7 +93,8 @@ const styles = StyleSheet.create({
         backgroundColor: 'skyblue'
     },
     listView: {
-        paddingVertical: 5,
+        paddingVertical: 10,
+        backgroundColor: '#fcd7fc'
     },
 });   
 
