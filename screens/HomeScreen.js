@@ -1,5 +1,5 @@
 import React, {useState} from 'react';
-import {View, Text, StyleSheet, ActivityIndicator} from 'react-native';
+import {View, Text, StyleSheet, ActivityIndicator, Image} from 'react-native';
 import Card from '../components/UI/Card';
 import { Ionicons, AntDesign } from '@expo/vector-icons';
 import { Input, CheckBox, Button, Overlay} from 'react-native-elements';
@@ -93,6 +93,14 @@ const HomeScreen = props => {
                 </Overlay>
             </View>
             <Card style = {styles.cardContainer}>
+                <View style={styles.imageContainer}>
+                    <Image
+                    style={styles.tinyLogo}
+                    source={
+                        require('../assets/teeny.png')
+                    }
+                />
+            </View>
                 <Input
                     placeholder='ENTER LONG URL'
                     leftIcon={<AntDesign name="sharealt" size={24} color="black" />}
@@ -109,7 +117,8 @@ const HomeScreen = props => {
                     placeholder='ENTER YOUR CUSTOM URL'
                     leftIcon={<AntDesign name="isv" size={24} color="black" />}
                     value={customUrl}
-                    onChangeText={setCustomUrl}       
+                    onChangeText={setCustomUrl}
+                    autoCapitalize={'none'}       
                     />) 
                     : (null)
                 }
@@ -121,6 +130,7 @@ const HomeScreen = props => {
                     (
                         <Button
                             title="Generate Short URL"
+                            style={styles.buttons}
                             type="outline"
                             onPress = {() => {generateShortUrlHandler(enteredLongUrl, customUrlChecked, customUrl)}}
                         />
@@ -128,6 +138,7 @@ const HomeScreen = props => {
                 }
                 <Button 
                     title = "Logout"
+                    style={styles.buttons}
                     type="outline"
                     onPress={logoutHandler}
                 />
@@ -144,6 +155,14 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         backgroundColor: 'skyblue'
     },
+    imageContainer:{
+        paddingVertical: 20,
+        alignItems: 'center'
+    },
+    tinyLogo:{
+        height: 80,
+        width: 185
+    },
     cardContainer: {
         width: '80%',
         height: '80%',
@@ -152,8 +171,11 @@ const styles = StyleSheet.create({
         padding: 20,
         justifyContent: 'center',
         alignItems: 'center'
-        
     },
+    buttons: {
+        width: 80,
+        paddingVertical: 5
+    }
 });    
 
 export const screenOptions = {

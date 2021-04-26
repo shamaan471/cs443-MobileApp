@@ -59,6 +59,7 @@ const Tab = createBottomTabNavigator();
 export const MainTabNavigator = () => {
   return (
       <Tab.Navigator
+      animationEnabled
       screenOptions={({ route }) => ({
         tabBarIcon: ({ focused, color, size }) => {
           let iconName;
@@ -82,6 +83,7 @@ export const MainTabNavigator = () => {
       tabBarOptions={{
         activeTintColor: 'tomato',
         inactiveTintColor: 'gray',
+
       }}
       >
         <Tab.Screen name="Home" component={HomeScreen} options={homeScreenOptions}/>

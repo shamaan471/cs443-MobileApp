@@ -111,12 +111,12 @@ const LoginScreen = props => {
       <LinearGradient colors={['#ffedff', '#ffe3ff']} style={styles.gradient}>
         <Card style={styles.authContainer}>
           <View style={styles.imageContainer}>
-          <Image
-            style={styles.tinyLogo}
-            source={
-              require('../assets/teeny.png')
-            }
-          />
+            <Image
+              style={styles.tinyLogo}
+              source={
+                require('../assets/teeny.png')
+              }
+            />
           </View>
           <ScrollView>
             <Input

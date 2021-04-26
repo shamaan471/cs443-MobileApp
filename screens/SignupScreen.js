@@ -147,21 +147,24 @@ const SignupScreen = props => {
                       <ActivityIndicator/>
                     ):
                     (
+                      <View>
+                        <View style={styles.buttonContainter}>
+                          <Button
+                            title = 'Create Account'
+                            color={Colors.primary}
+                            onPress={signUpHandler}
+                          />
+                      </View>
+                      
                       <View style={styles.buttonContainter}>
-                        <Button
-                          title = 'Create Account'
-                          color={Colors.primary}
-                          onPress={signUpHandler}
-                        />
+                          <Button
+                            title = 'Go Back'
+                            color={Colors.primary}
+                            onPress={() => props.navigation.goBack()}
+                          />
+                      </View>
                     </View>
-                    )}
-                    <View style={styles.buttonContainter}>
-                        <Button
-                          title = 'Go Back'
-                          color={Colors.primary}
-                          onPress={() => props.navigation.goBack()}
-                        />
-                    </View>
+                  )}
                 </ScrollView>
             </Card>
           
