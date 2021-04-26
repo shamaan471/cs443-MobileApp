@@ -1,6 +1,7 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
 import Colors from '../constants/Colors'
 import { Ionicons } from '@expo/vector-icons';
 
@@ -55,7 +56,8 @@ export const MainNavigator = () => {
 }; 
 
 
-const Tab = createBottomTabNavigator();
+//const Tab = createBottomTabNavigator();
+const Tab = createMaterialBottomTabNavigator();
 export const MainTabNavigator = () => {
   return (
       <Tab.Navigator
@@ -73,7 +75,7 @@ export const MainTabNavigator = () => {
           }
 
           // You can return any component that you like here!
-          return <Ionicons name={iconName} size={size} color={color} />;
+          return <Ionicons name={iconName} size={18} color={color} />;
         },
         headerStyle: {
           backgroundColor: Colors.primary

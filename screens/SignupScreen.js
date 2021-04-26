@@ -144,11 +144,13 @@ const SignupScreen = props => {
                     />
 
                     {isLoading? (
-                      <ActivityIndicator/>
+                      <View style={styles.buttonContainer}>
+                        <ActivityIndicator/>
+                      </View>
                     ):
                     (
                       <View>
-                        <View style={styles.buttonContainter}>
+                        <View style={styles.buttonContainer}>
                           <Button
                             title = 'Create Account'
                             color={Colors.primary}
@@ -156,7 +158,7 @@ const SignupScreen = props => {
                           />
                       </View>
                       
-                      <View style={styles.buttonContainter}>
+                      <View style={styles.buttonContainer}>
                           <Button
                             title = 'Go Back'
                             color={Colors.primary}
@@ -198,7 +200,6 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
       marginTop: 10,
-      paddingVertical: 5
     }
 });
 

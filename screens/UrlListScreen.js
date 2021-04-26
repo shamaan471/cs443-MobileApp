@@ -1,5 +1,5 @@
 import React, {useState, useEffect, useCallback} from 'react';
-import {View, StyleSheet, ActivityIndicator, Linking} from 'react-native';
+import {View, StyleSheet, ActivityIndicator, Linking, ScrollView} from 'react-native';
 // import Clipboard from '@react-native-community/clipboard';
 import { Text, ListItem, Button, Avatar } from 'react-native-elements';
 import { useSelector } from 'react-redux';
@@ -45,21 +45,23 @@ const UrlListScreen = props => {
 
     return (
         <View style={styles.screen}>
-            <Text h4>{"Your Short Urls:"}</Text>
-            <Button
-                icon={
-                    <Ionicons name="refresh-circle-outline" size={24} color="black" />
-                }
-                type="clear"
-                onPress={fetchUrls}
-            />
+            <View style={styles.headerContainer}>
+                <Text h4>{"Your Short Urls:"}</Text>
+                <Button
+                    icon={
+                        <Ionicons name="refresh-circle-outline" size={24} color="black" />
+                    }
+                    type="clear"
+                    onPress={fetchUrls}
+                />
+            </View>
             {isLoading?
                 (
                     <ActivityIndicator/>
                 )
                 :
                 (
-                    <View>
+                    <ScrollView>
                     {
                       urlList.map((l, i) => (
                         <ListItem
@@ -68,7 +70,7 @@ const UrlListScreen = props => {
                         //  onPress = {() => Clipboard.setString(l.short)}
                             onPress={ ()=>{ Linking.openURL(`https://teenyurl21.herokuapp.com/${l.short}`)}}
                          >
-                          <Avatar source={{uri: "http://cdn.onlinewebfonts.com/svg/img_504359.png"}} />
+                          <Avatar source={{uri: "https://www.pngarts.com/files/3/URL-Chain-Link-PNG-Picture.png"}} />
                           <ListItem.Content>
                               {console.log(l.short)}
                             <ListItem.Title>{l.short}</ListItem.Title>
@@ -77,7 +79,7 @@ const UrlListScreen = props => {
                         </ListItem>
                       ))
                     }
-                  </View>
+                  </ScrollView>
                 )
             }
         </View>
@@ -96,6 +98,9 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         backgroundColor: '#fcd7fc'
     },
+    headerContainer: {
+        marginTop: 35
+    }
 });   
 
 

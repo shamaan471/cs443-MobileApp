@@ -23,8 +23,11 @@ const HomeScreen = props => {
 
 
     const generateShortUrlHandler = async (text, isCostumUrl, myCustomUrl) => {
-
-        if(myCustomUrl.length <= 0 && isCostumUrl){
+        if(text.length <= 0){
+            setOverlayMessage("Please enter the long Url");
+            setOverlayVisible(true);
+        }
+        else if(myCustomUrl.length <= 0 && isCostumUrl){
             setOverlayMessage("Please enter a Costum Url");
             setOverlayVisible(true);
         }
@@ -32,7 +35,6 @@ const HomeScreen = props => {
             setOverlayMessage("The url cannot be more than 10 characters long!");
             setOverlayVisible(true);
         }
-
         else{
             setIsLoading(true);
             //send api request to genetate the long url
@@ -105,7 +107,8 @@ const HomeScreen = props => {
                     placeholder='ENTER LONG URL'
                     leftIcon={<AntDesign name="sharealt" size={24} color="black" />}
                     value={enteredLongUrl}
-                    onChangeText={setEnteredLongUrl}       
+                    onChangeText={setEnteredLongUrl}
+                    autoCapitalize={'none'}         
                 />
                 <CheckBox
                     center
@@ -113,13 +116,15 @@ const HomeScreen = props => {
                     checked={customUrlChecked}
                     onPress={() => {setCostumUrlChecked(!customUrlChecked)}}
                 />
-                {customUrlChecked ? ( <Input
-                    placeholder='ENTER YOUR CUSTOM URL'
-                    leftIcon={<AntDesign name="isv" size={24} color="black" />}
-                    value={customUrl}
-                    onChangeText={setCustomUrl}
-                    autoCapitalize={'none'}       
-                    />) 
+                {customUrlChecked ? (
+                    <Input
+                        placeholder='ENTER YOUR CUSTOM URL'
+                        leftIcon={<AntDesign name="isv" size={24} color="black" />}
+                        value={customUrl}
+                        onChangeText={setCustomUrl}
+                        autoCapitalize={'none'}       
+                    />
+                    ) 
                     : (null)
                 }
                 {isLoading?
@@ -128,20 +133,23 @@ const HomeScreen = props => {
                     )
                     :
                     (
-                        <Button
-                            title="Generate Short URL"
-                            style={styles.buttons}
-                            type="outline"
-                            onPress = {() => {generateShortUrlHandler(enteredLongUrl, customUrlChecked, customUrl)}}
-                        />
+                        <View style={styles.buttonContainer}>
+                            <Button
+                                title="Generate Short URL"
+                                type="outline"
+                                onPress = {() => {generateShortUrlHandler(enteredLongUrl, customUrlChecked, customUrl)}}
+                            />
+                        </View>
                     )
                 }
-                <Button 
-                    title = "Logout"
-                    style={styles.buttons}
-                    type="outline"
-                    onPress={logoutHandler}
-                />
+                <View  style={styles.buttonContainer}>
+                    <Button 
+                        title = "Logout"
+                        style={styles.Lbutton}
+                        type="outline"
+                        onPress={logoutHandler}
+                    />
+                </View>
                     
             </Card>
         </View>
@@ -172,9 +180,12 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center'
     },
-    buttons: {
-        width: 80,
-        paddingVertical: 5
+    Lbutton: {
+        color:'red',
+        marginTop: 10
+    },
+    buttonContainer: {
+        marginTop: 10
     }
 });    
 
